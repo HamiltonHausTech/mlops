@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+.env
+
+# MLflow tracking logs/artifacts
+mlruns/
+
+# BentoML build artifacts
+bentoml_deploy/
+bentoml_models/
+bentoml_bundles/
+bento_bundle/
+bentoml_workspace/
+
+# Log files
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode/IDE configs
+.vscode/
+.idea/
+.devcontainer/
+
+# Docker
+*.pid
+*.tar
+*.bak
+*.swp
+docker-compose.override.yml
+
+# OS crap
+.DS_Store
+Thumbs.db
+
+# Misc
+*.egg-info/
+*.eggs/
+dist/
+build/

@@ -1,0 +1,13 @@
+services:
+  mlflow-server:
+    image: mlflow/mlflow:latest
+    ports: ["5001:5000"]
+    volumes:
+      - ./mlruns:/mlflow/mlruns
+    command: mlflow server --backend-store-uri /mlflow/mlruns --default-artifact-root /mlflow/mlruns
+
+  model-service:
+    build: ../serve
+    ports: ["5000:5000"]
+    depends_on:
+      - mlflow-server
