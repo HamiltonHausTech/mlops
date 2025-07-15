@@ -1,17 +1,20 @@
+from __future__ import annotations
 import bentoml
-from bentoml.io import JSON
 import mlflow.sklearn
+from pydantic import BaseModel
+from typing import List
 
-# Load model artifact from MLflow
-model = mlflow.sklearn.load_model("runs:/<RUN_ID>/model")
+class IrisRequest(BaseModel):
+    data: List[List[float]]
 
-@bentoml.env(auto_pip_dependencies=True)
-@bentoml.artifacts([bentoml.SklearnModelArtifact('model')])
-class IrisService(bentoml.BentoService):
-    @bentoml.api(input=JSON(), output=JSON())
-    def predict(self, parsed_json):
-        data = parsed_json["data"]
-        preds = self.artifacts.model.predict(data)
+@bentoml.service()
+class IrisService:
+    def __init__(self):
+        self.model = None
+
+    @bentoml.api
+    def predict(self, payload: dict) -> dict:
+        if self.model is None:
+            self.model = mlflow.sklearn.load_model("runs:/72ac6c89a966497482251810a7594c39/model")
+        preds = self.model.predict(payload["data"])
         return {"predictions": preds.tolist()}
-
-svc = IrisService()
