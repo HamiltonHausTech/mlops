@@ -1,0 +1,13 @@
+service: "api:svc"
+labels:
+  owner: Andrew Hamilton
+  project: iris-mlflow-demo
+
+include:
+  - "*.py"
+  - "requirements.txt"
+python:
+  packages:
+    - scikit-learn
+    - mlflow
+    - bentoml
