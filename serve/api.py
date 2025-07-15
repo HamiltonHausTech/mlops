@@ -13,3 +13,5 @@ class IrisService(bentoml.BentoService):
         data = parsed_json["data"]
         preds = self.artifacts.model.predict(data)
         return {"predictions": preds.tolist()}
+
+svc = IrisService()
